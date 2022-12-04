@@ -31,14 +31,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getTasksByBoard = exports.findTasks = exports.updateSetOfTask = void 0;
-const mongodb_1 = require("mongodb");
 const taskService = __importStar(require("../services/task.service"));
 const userService = __importStar(require("../services/user.service"));
 const boardService = __importStar(require("../services/board.service"));
 const error_service_1 = require("../services/error.service");
 const server_service_1 = require("../services/server.service");
+const mongoose_1 = __importDefault(require("mongoose"));
 const updateSetOfTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const guid = req.header('Guid') || 'undefined';
     const initUser = req.header('initUser') || 'undefined';
@@ -94,7 +97,7 @@ const findTasks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 if (oneTask.description.toUpperCase().includes(searchRequest)) {
                     return true;
                 }
-                const users = [...allUsers.filter(user => user._id === new mongodb_1.ObjectId(oneTask.userId) || oneTask.users.includes(user._id))];
+                const users = [...allUsers.filter(user => user._id === new mongoose_1.default.Types.ObjectId(oneTask.userId.trim()) || oneTask.users.includes(user._id))];
                 for (const user of users) {
                     if (user.name.toUpperCase().includes(searchRequest)) {
                         return true;

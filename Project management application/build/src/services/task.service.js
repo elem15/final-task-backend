@@ -38,8 +38,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.clearUserInTasks = exports.deleteTaskByParams = exports.deleteTaskById = exports.updateTask = exports.findTasks = exports.findTaskById = exports.findOneTask = exports.createTask = void 0;
 const task_1 = __importDefault(require("../models/task"));
 const mongodb_1 = require("mongodb");
-const fileService = __importStar(require("./file.service"));
-const pointService = __importStar(require("./point.service"));
+const fileService = __importStar(require("../services/file.service"));
+const pointService = __importStar(require("../services/point.service"));
 const boardService = __importStar(require("./board.service"));
 const server_service_1 = require("./server.service");
 const createTask = (params, guid, initUser, emit = true, notify = true) => __awaiter(void 0, void 0, void 0, function* () {

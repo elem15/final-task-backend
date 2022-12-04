@@ -5,6 +5,7 @@ import * as userService from '../services/user.service';
 import * as boardService from '../services/board.service';
 import { checkBody, createError } from '../services/error.service';
 import { socket } from '../services/server.service';
+import mongoose from 'mongoose';
 
 
 export const updateSetOfTask = async (req: Request, res: Response) => {
@@ -62,7 +63,7 @@ export const findTasks = async (req: Request, res: Response) => {
         if (oneTask.description.toUpperCase().includes(searchRequest)) {
           return true;
         }
-        const users = [...allUsers.filter(user => user._id === new ObjectId(oneTask.userId) || oneTask.users.includes(user._id))];
+        const users = [...allUsers.filter(user => user._id === new mongoose.Types.ObjectId(oneTask.userId.trim()) || oneTask.users.includes(user._id))];
         for (const user of users) {
 
           if (user.name.toUpperCase().includes(searchRequest)) {
